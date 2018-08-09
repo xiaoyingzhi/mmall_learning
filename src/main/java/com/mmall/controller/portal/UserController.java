@@ -49,6 +49,7 @@ public class UserController {
         return ServerResponse.createBySuccess();
     }
 
+
     /**
      * 用户注册
      * @param user
@@ -59,6 +60,7 @@ public class UserController {
     public ServerResponse<String> register(User user){
         return iUserService.register(user);
     }
+
 
     /**
      * 校验
@@ -95,12 +97,33 @@ public class UserController {
     @RequestMapping(value = "forget_get_question.do",method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<String> forgetGetQuestion(String username){
+
         return iUserService.selectQuestion(username);
     }
 
+    /**
+     * 验证密保
+     * @param username
+     * @param question
+     * @param answer
+     * @return
+     */
     @RequestMapping(value = "forget_check_answer.do",method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<String> forgetCheckAnswer(String username,String question,String answer){
         return iUserService.checkAnswer(username,question,answer);
+    }
+
+    /**
+     * 修改密码
+     * @param username
+     * @param passwordNew
+     * @param forgetToken
+     * @return
+     */
+    @RequestMapping(value = "forget_rest_password.do",method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse<String> forgetRestPassword(String  username,String passwordNew,String forgetToken){
+        return iUserService.forgetRestPassword(username,passwordNew,forgetToken);
     }
 }
